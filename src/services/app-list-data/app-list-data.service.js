@@ -1,8 +1,8 @@
 import config from '../../config/app.config';
-import handleFetchErrors from '../../helpers/handle-fetch-errors/handle-fetch-errors.helper';
+import handleFetchErrors from '../../helpers/handle-fetch-errors/app-handle-fetch-errors.helper';
 
 const listDataService = async (id) => {   
-    const url = `${config.API_URL}`;
+    const url = `${config.API_URL}items`;
     const params = {
         method: 'GET',
         headers: {
@@ -18,7 +18,7 @@ const listDataService = async (id) => {
     if (!response.ok) {
       return handleFetchErrors(response, false);
     }
-    return { success: true, id: id }
+    return { success: true, data: response.json() }
 }
 
 export default listDataService;

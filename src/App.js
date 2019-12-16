@@ -1,13 +1,17 @@
 import React from 'react';
-import AppList from './components/app-list/app-list.component';
-import AppItemDetail from './components/app-item-detail/app-item-detail.component';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { StoreProvider } from './store/app.store';
+import AppMain from './components/app-main/app-main.component';
 
 function App() {
   return (
-    <div>
-      <AppList/>
-      <AppItemDetail/>
-    </div>
+    <Router>
+      <StoreProvider>
+        <Route path="/" exact component={AppMain} />
+        <Route path="/login" exact component={AppMain} />
+        <Route path="/logout" exact component={AppMain} />
+      </StoreProvider>
+    </Router>
   );
 }
 
