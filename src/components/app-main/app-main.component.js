@@ -29,7 +29,7 @@ const AppMain = () => {
             
         }
         getListData();
-    },[]);
+    },[dispatch, state.listData.length]);
     return (
         <>  
         { state.loading && state.loading === 'listData' ?

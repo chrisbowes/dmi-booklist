@@ -6,8 +6,7 @@ import listItemDataService from '../../services/app-list-item-data/app-list-item
 const AppItemDetail = () => {
 	const { state, dispatch } = React.useContext(Store);
 	React.useEffect(() => {
-		console.log('detail effect');
-		if (!state.listItemDetail.data && state.listItemDetail.id) {
+		if (state.loading === 'listItemData' && state.listItemDetail.id) {
 			async function getListItemData() {
 				const listItemData = await listItemDataService(state.listItemDetail.id);
 				if (listItemData.success) {
@@ -26,19 +25,17 @@ const AppItemDetail = () => {
 			getListItemData();
 		}
 	}, [ state.listItemDetail ]);
-	const data = state.listItemDetail.data;
+	const data = state.listItemDetail;
+	if (state.loading === 'listItemData'){
+		return (<div>loading</div>)
+	} else if (!data.id) {
+		return (<div>No Details Selected</div>)
+	}
 	return (
 		<article>
-			{data ?
-				<>
-					<img src={data.image}/>
-					<h3>{data.title}</h3>
-					<h4>{data.author}</h4>
-				</>
-				:
-				<div>No details selected</div>
-			}
-
+			<img src={data.image}/>
+			<h3>{data.title}</h3>
+			<h4>{data.author}</h4>
 		</article>
 	)
 }

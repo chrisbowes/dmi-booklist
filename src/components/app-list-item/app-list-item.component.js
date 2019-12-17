@@ -9,7 +9,6 @@ const AppListItem = (props) => {
             type: 'FETCH_LIST_ITEM_DATA_REQUEST',
             payload: {
                 id: props.data.id,
-                data: null
             }
         });
     }

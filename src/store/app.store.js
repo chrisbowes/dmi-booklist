@@ -24,7 +24,7 @@ function reducer(state, action) {
     case 'FETCH_LIST_ITEM_DATA_REQUEST':
       return { ...state, listItemDetail: action.payload, loading: 'listItemData'};
     case 'FETCH_LIST_ITEM_DATA_SUCCESS':
-      return { ...state, listItemDetail: {...state.listItemDetail, data: action.payload}, loading: null };
+      return { ...state, listItemDetail: action.payload, loading: null };
     case 'LOGIN_REQUEST':
       return { ...state, loading: action.payload }
     case 'LOGIN_SUCCESS':
