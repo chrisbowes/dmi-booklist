@@ -18,7 +18,11 @@ const listDataService = async (id) => {
     if (!response.ok) {
       return handleFetchErrors(response, false);
     }
-    return { success: true, data: response.json() }
+    const jsonData = await response.json();
+    return {
+      success: true,
+      data: jsonData
+    }
 }
 
 export default listDataService;

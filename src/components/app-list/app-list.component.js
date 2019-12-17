@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import AppListItem from '../app-list-item/app-list-item.component';
-import { Store } from '../../store/app.store';
-const AppList = () => {
-
+const AppList = (props) => {
     return (
         <ul>
-            <AppListItem/>
+            { props.data && props.data.map((item, index) => {
+                return <AppListItem key={index} data={item}/>
+            })}            
         </ul>
     )
 }

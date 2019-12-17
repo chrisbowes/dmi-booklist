@@ -10,14 +10,29 @@ const AppMain = () => {
         if(!state.listData.length){
             dispatch({ 
                 type: 'FETCH_DATA_REQUEST',
-                loading: 'listData'
-            });
-            listDataService();
+                payload: 'listData'
+            });           
         }
+        async function getListData(){
+            const listData = await listDataService();
+            if (listData.success){
+                dispatch({ 
+                    type: 'FETCH_LIST_DATA_SUCCESS',
+                    payload: listData.data
+                });
+            } else {
+                dispatch({ 
+                    type: 'FETCH_ERROR',
+                    payload: listData.error
+                });
+            }
+            
+        }
+        getListData();
     },[]);
     return (
         <>
-            <AppList/>
+            <AppList data={state.listData}/>
             <AppItemDetail/>
         </>
     )
