@@ -1,8 +1,8 @@
 import config from '../../config/app.config';
 import handleFetchErrors from '../../helpers/handle-fetch-errors/app-handle-fetch-errors.helper';
 
-const listDataService = async () => {   
-    const url = `${config.API_URL}items`;
+const listItemDataService = async (id) => {   
+    const url = `${config.API_URL}items/${id}`;
     const params = {
         method: 'GET',
         headers: {
@@ -25,4 +25,4 @@ const listDataService = async () => {
     }
 }
 
-export default listDataService;
+export default listItemDataService;

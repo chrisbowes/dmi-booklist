@@ -9,7 +9,7 @@ const AppMain = () => {
     React.useEffect(() => {
         if(!state.listData.length){
             dispatch({ 
-                type: 'FETCH_DATA_REQUEST',
+                type: 'FETCH_LIST_DATA_REQUEST',
                 payload: 'listData'
             });           
         }
@@ -31,9 +31,15 @@ const AppMain = () => {
         getListData();
     },[]);
     return (
-        <>
-            <AppList data={state.listData}/>
-            <AppItemDetail/>
+        <>  
+        { state.loading && state.loading === 'listData' ?
+            <div>loading</div>
+            :
+            <>
+                <AppList data={state.listData} />
+                <AppItemDetail/>
+            </>
+        }           
         </>
     )
 };
