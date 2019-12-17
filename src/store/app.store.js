@@ -1,4 +1,5 @@
 import React from 'react'
+import base64 from 'base-64'
 
 export const Store = React.createContext();
 
@@ -8,7 +9,11 @@ const initialState = {
     id: null,
     data: null
   },
-  userLogin: {},
+  userLogin: {
+    loggedIn: true,
+    userName: 'usertest',
+    auth: base64.encode('usertest:secret')
+  },
   loading: 'listData',
   error: null
 };

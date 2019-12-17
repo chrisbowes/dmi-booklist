@@ -14,7 +14,7 @@ const AppMain = () => {
             });           
         }
         async function getListData(){
-            const listData = await listDataService();
+            const listData = await listDataService(state.userLogin.auth);
             if (listData.success){
                 dispatch({ 
                     type: 'FETCH_LIST_DATA_SUCCESS',

@@ -1,12 +1,13 @@
 import config from '../../config/app.config';
 import handleFetchErrors from '../../helpers/handle-fetch-errors/app-handle-fetch-errors.helper';
 
-const listDataService = async () => {   
+const listDataService = async (auth) => {   
     const url = `${config.API_URL}items`;
     const params = {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Basic ${auth}`
         }
     }
     let response;

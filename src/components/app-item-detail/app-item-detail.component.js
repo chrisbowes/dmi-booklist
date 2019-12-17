@@ -8,7 +8,7 @@ const AppItemDetail = () => {
 	React.useEffect(() => {
 		if (state.loading === 'listItemData' && state.listItemDetail.id) {
 			async function getListItemData() {
-				const listItemData = await listItemDataService(state.listItemDetail.id);
+				const listItemData = await listItemDataService(state.listItemDetail.id, state.userLogin.auth);
 				if (listItemData.success) {
 					dispatch({
 						type: 'FETCH_LIST_ITEM_DATA_SUCCESS',
