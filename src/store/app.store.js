@@ -1,5 +1,4 @@
 import React from 'react'
-import base64 from 'base-64'
 
 export const Store = React.createContext();
 
@@ -10,30 +9,30 @@ const initialState = {
     data: null
   },
   userLogin: {
-    loggedIn: true,
-    userName: 'usertest',
-    auth: base64.encode('usertest:secret')
+    loggedIn: false,
+    userName: null,
+    auth: null
   },
-  loading: 'listData',
+  loading: null,
   error: null
 };
 
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_ERROR':
-      return { ...state, error: action.payload }
+      return { ...state, error: action.payload, loading: null }
     case 'FETCH_LIST_DATA_REQUEST':
       return { ...state, loading: 'listData' };
     case 'FETCH_LIST_DATA_SUCCESS':
-      return { ...state, listData: action.payload, loading: null };
+      return { ...state, ...action.payload };
     case 'FETCH_LIST_ITEM_DATA_REQUEST':
       return { ...state, listItemDetail: action.payload, loading: 'listItemData'};
     case 'FETCH_LIST_ITEM_DATA_SUCCESS':
       return { ...state, listItemDetail: action.payload, loading: null };
     case 'LOGIN_REQUEST':
-      return { ...state, loading: action.payload }
+      return { ...state, ...action.payload }
     case 'LOGIN_SUCCESS':
-      return { ...state, userLogin: action.payload }
+      return { ...state, ...action.payload }
     case 'LOGIN_FAIL':
       return { ...state, error: action.payload }
     default:
