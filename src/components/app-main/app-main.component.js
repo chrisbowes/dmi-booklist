@@ -3,16 +3,22 @@ import { Redirect } from 'react-router-dom';
 import AppList from '../app-list/app-list.component';
 import AppItemDetail from '../app-item-detail/app-item-detail.component';
 import AppError from '../app-error/app-error.component';
+import AppListAdd from '../app-list-add/app-list-add.component';
+import AppLoading from '../app-loading/app-loading.component';
 import listDataService from '../../services/app-list-data/app-list-data.service';
+import styled from 'styled-components';
 import { Store } from '../../store/app.store';
+
+const AppLayout = styled.div`
+	display: flex;
+	justify-content: space-evenly;
+	* {
+		flex: 1 0 0
+	}
+`;
 
 const AppMain = () => {
 	const { dispatch, state } = React.useContext(Store);
-	React.useEffect(() => {
-		if (!state.userLogin.loggedIn) {
-			console.log("not logged in");
-		}
-	}, [state.userLogin.loggedIn])
 	React.useEffect(() => {
 		if (!state.listData.length && state.userLogin.loggedIn) {
 			dispatch({
@@ -27,7 +33,7 @@ const AppMain = () => {
 						payload: {
 							listData: listData.data,
 							loading: null,
-							userLogin: {...state.userLogin, loggedIn: true}
+							userLogin: { ...state.userLogin, loggedIn: true }
 						}
 					});
 				} else {
@@ -38,19 +44,30 @@ const AppMain = () => {
 				}
 			}
 			getListData();
+
 		}
 	}, [dispatch, state.listData.length]);
+	React.useEffect(() => {
+		localStorage.setItem('dmiBooklist', JSON.stringify(state));
+	}, [state.listData]);
 	const redirectToLogin = !state.userLogin.loggedIn;
+	const showAddForm = () => dispatch({ type: 'SHOW_ADD_FORM' });
 	return (
 		<>
-			{state.error && <AppError/>}
-			{redirectToLogin && <Redirect to='/login'/>}
+			{state.error && <AppError />}
+			{redirectToLogin && <Redirect to='/login' />}
 			{state.loading && state.loading === 'listData' ?
-				<div>loading</div>
+				<AppLoading cssHeight="100vh" />
 				:
 				<>
-					<AppList data={state.listData} />
-					<AppItemDetail />
+					<div>
+						<button onClick={showAddForm}>Add new book</button>
+						{state.showAddForm && <AppListAdd />}
+					</div>
+					<AppLayout>
+						<AppList data={state.listData} />
+						<AppItemDetail />
+					</AppLayout>
 				</>
 			}
 		</>

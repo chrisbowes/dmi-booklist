@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { StoreProvider } from './store/app.store';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
 import AppMain from './components/app-main/app-main.component';
 import Login from './components/app-login/app-login.component';
 
+library.add(faCircleNotch);
 
 function App() {
   return (
