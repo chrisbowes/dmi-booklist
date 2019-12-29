@@ -4,6 +4,10 @@ export const Store = React.createContext();
 
 const emptyState = {
   listData: [],
+  listDataRange: {
+    from: 0,
+    to: 4
+  },
   listItemDetail: {
     id: null,
     data: null
@@ -45,11 +49,15 @@ function reducer(state, action) {
     case 'LOGOUT':
       return { ...state, userLogin: { loggedIn: false, userName: null, auth: null }}
     case 'ADD_NEW_BOOK':
-      return { ...state, listData: action.payload, showAddForm: false}
+      return { ...state, ...action.payload, showAddForm: false}
     case 'SHOW_ADD_FORM':
       return { ...state, showAddForm: true}
     case 'HIDE_ADD_FORM':
       return { ...state, showAddForm: false }
+    case 'CLEAR_DETAILS':
+      return { ...state, listItemDetail: { id: null, data: null }}
+    case 'SET_LIST_RANGE': 
+      return { ...state, listDataRange: action.payload }
     default:
       throw new Error();
   }

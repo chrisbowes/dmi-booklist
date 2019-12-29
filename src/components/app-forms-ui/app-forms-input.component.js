@@ -13,7 +13,13 @@ const Input = styled.input`
 
 const FormInput = (props) => {
   return (
-    <Input type={props.inputType} onChange={props.inputChangeAction} name={props.inputName} placeholder={props.inputPlaceholder}></Input>
+		<Input 
+			type={props.inputType} 
+			onChange={props.inputChangeAction} 
+			name={props.inputName} 
+			placeholder={props.inputPlaceholder} 
+			step={props.inputStep}
+			pattern={props.inputPattern}/>
   )
 }
 

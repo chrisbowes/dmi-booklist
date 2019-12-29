@@ -15,10 +15,16 @@ const AppLayout = styled.div`
 	justify-content: space-evenly;
 	margin: 0 auto;
 	max-width: 1200px;
+	@media screen and (max-width:600px){
+		height: calc(100vh - 62px);
+		overflow: scroll;
+	}
 `;
 
 const AppMain = () => {
 	const { dispatch, state } = React.useContext(Store);
+	const [ mobileView, setMobileView ] = React.useState();
+
 	React.useEffect(() => {
 		if (!state.listData.length && state.userLogin.loggedIn) {
 			dispatch({
@@ -47,10 +53,24 @@ const AppMain = () => {
 
 		}
 	}, [dispatch, state.listData.length]);
+
 	React.useEffect(() => {
 		localStorage.setItem('dmiBooklist', JSON.stringify(state));
 	}, [state.listData]);
+
+	React.useLayoutEffect(() => {
+    function updateSize() {
+			const matchMobileScreen = window.matchMedia('(max-width: 600px)').matches;
+			console.log(matchMobileScreen)
+      setMobileView(matchMobileScreen);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+	}, []);
+	
 	const redirectToLogin = !state.userLogin.loggedIn;
+	const showDetailPanel = !mobileView || mobileView && state.listItemDetail.id;
+	const showListPanel = !mobileView || mobileView && !state.listItemDetail.id;
 	return (
 		<>
 			<AppHeader />
@@ -58,11 +78,11 @@ const AppMain = () => {
 			{state.error && <AppError />}
 			{redirectToLogin && <Redirect to='/login' />}
 			{state.loading && state.loading === 'listData' ?
-				<AppLoading cssHeight="100vh" />
+				<AppLoading cssHeight="calc(100vh - 62px)" />
 				:
 				<AppLayout>
-					<AppList data={state.listData} />
-					<AppItemDetail />
+					{ showListPanel && <AppList mobileView={mobileView} />}
+					{ showDetailPanel && <AppItemDetail mobileView={mobileView} /> }
 				</AppLayout>
 			}
 		</>

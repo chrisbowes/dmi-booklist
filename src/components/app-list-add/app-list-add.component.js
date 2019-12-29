@@ -44,7 +44,10 @@ const AppListAdd = () => {
 		]
 		dispatch({
 			type: 'ADD_NEW_BOOK',
-			payload: listData
+			payload: {
+				listData,
+				listDataRange: { from: 0, to: 5 }
+			}
 		})
 	}
 	const cancelAdditem = () => {
@@ -57,15 +60,15 @@ const AppListAdd = () => {
 			<AddFormInner>
 				<div>
 					<FormLabel labelHtmlFor="bookname">Book Name</FormLabel>
-					<FormInput inputType='text' inputChangeAction={(e) => setBookname(e.target.value)} inputName="bookname" inputPlaceholder="book name" />
+					<FormInput inputType='text' inputChangeAction={(e) => setBookname(e.target.value)} inputName="bookname" />
 				</div>
 				<div>
 					<FormLabel labelHtmlFor="bookprice">Book Price</FormLabel>
-					<FormInput inputType='number' inputChangeAction={(e) => setBookprice(e.target.value)} inputName="bookprice" inputPlaceholder="book price" />
+					<FormInput inputType='number' inputChangeAction={(e) => setBookprice(parseInt(e.target.value))} inputName="bookprice" inputStep="0.01" inputPattern="^\d+(?:\.\d{1,2})?$"/>
 				</div>
 				<div>
 					<FormLabel labelHtmlFor="bookimagesrc">Book Image Link</FormLabel>
-					<FormInput inputType='text' onChange={(e) => setBookimagesrc(e.target.value)} inputName="bookimagesrc" inputPlaceholder="book image link" />
+					<FormInput inputType='text' onChange={(e) => setBookimagesrc(e.target.value)} inputName="bookimagesrc" />
 				</div>
 				<FormActionWrapper>
 					<FormButton buttonClickAction={cancelAdditem} buttonType="button" buttonText="Cancel" />

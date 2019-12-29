@@ -24,6 +24,10 @@ const AppTitle = styled.h1`
   border: 1px solid #e1e1e1;
 `;
 
+const BoldTitle = styled.span`
+	font-weight: bold;
+`;
+
 const AppHeaderActions = styled.div`
 	display: flex;
 	* {
@@ -45,12 +49,12 @@ const AppHeader = () => {
 		localStorage.removeItem('dmiBooklist');
 		dispatch({ type: 'LOGOUT' })
 	}
-	const showActions = state.userLogin.loggedIn && !state.loading;
+	const showActions = state.userLogin.loggedIn && state.listData.length;
 	return (
 		<AppHeaderDiv>
 			<AppHeaderInnerDiv>
 				<AppTitle>
-					Booklist
+					<BoldTitle>DMI</BoldTitle>&nbsp;Booklist
       	</AppTitle>
 				{showActions &&
 					<AppHeaderActions>
