@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import AppLoading from '../app-loading/app-loading.component';
+import AppFormattedPrice from '../app-formatted-price/app-formatted-price.component';
 import { Store } from '../../store/app.store';
 import listItemDataService from '../../services/app-list-item-data/app-list-item-data.service';
 
@@ -12,11 +13,28 @@ const SelectMessage = styled.div`
 	align-content: center;
 	text-align: center;
 	margin: 1.6rem;
+	flex: 2;
+	border: 1px solid #e1e1e1;
 `;
 
 const DetailArticle = styled.article`
 	margin: 1.6rem;
-	padding: 1rem;
+	flex: 2;
+`;
+
+const DetailTitleRow = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+`;
+
+const DetailTitle = styled.h3`
+	color: #333;
+	font-weight: 300;
+`;
+
+const DetailAuthor = styled.h4`
+	margin: 0;
 `;
 
 const DetailImage = styled.img`
@@ -60,12 +78,15 @@ const AppItemDetail = () => {
 	return (
 		<DetailArticle>
 			{state.loading === 'listItemData' ?
-				<AppLoading cssHeight="100%"/>
+				<AppLoading cssHeight="100%" />
 				:
 				<>
 					<DetailImage src={data.image} />
-					<h3>{data.title}</h3>
-					<h4>{data.author}</h4>
+					<DetailTitleRow>
+						<DetailTitle>{data.title}</DetailTitle>
+						<AppFormattedPrice value={data.price} />
+					</DetailTitleRow>
+					<DetailAuthor>{data.author}</DetailAuthor>
 				</>
 			}
 		</DetailArticle>

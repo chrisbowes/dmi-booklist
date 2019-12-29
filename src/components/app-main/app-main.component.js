@@ -5,6 +5,7 @@ import AppItemDetail from '../app-item-detail/app-item-detail.component';
 import AppError from '../app-error/app-error.component';
 import AppListAdd from '../app-list-add/app-list-add.component';
 import AppLoading from '../app-loading/app-loading.component';
+import AppHeader from '../app-header/app-header.component';
 import listDataService from '../../services/app-list-data/app-list-data.service';
 import styled from 'styled-components';
 import { Store } from '../../store/app.store';
@@ -12,9 +13,8 @@ import { Store } from '../../store/app.store';
 const AppLayout = styled.div`
 	display: flex;
 	justify-content: space-evenly;
-	* {
-		flex: 1 0 0
-	}
+	margin: 0 auto;
+	max-width: 1200px;
 `;
 
 const AppMain = () => {
@@ -51,24 +51,19 @@ const AppMain = () => {
 		localStorage.setItem('dmiBooklist', JSON.stringify(state));
 	}, [state.listData]);
 	const redirectToLogin = !state.userLogin.loggedIn;
-	const showAddForm = () => dispatch({ type: 'SHOW_ADD_FORM' });
 	return (
 		<>
+			<AppHeader />
+			{state.showAddForm && <AppListAdd />}
 			{state.error && <AppError />}
 			{redirectToLogin && <Redirect to='/login' />}
 			{state.loading && state.loading === 'listData' ?
 				<AppLoading cssHeight="100vh" />
 				:
-				<>
-					<div>
-						<button onClick={showAddForm}>Add new book</button>
-						{state.showAddForm && <AppListAdd />}
-					</div>
-					<AppLayout>
-						<AppList data={state.listData} />
-						<AppItemDetail />
-					</AppLayout>
-				</>
+				<AppLayout>
+					<AppList data={state.listData} />
+					<AppItemDetail />
+				</AppLayout>
 			}
 		</>
 	)

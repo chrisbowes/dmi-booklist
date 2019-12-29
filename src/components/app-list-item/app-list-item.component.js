@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Store } from '../../store/app.store';
+import AppFormattedPrice from '../app-formatted-price/app-formatted-price.component';
 
 const ListLi = styled.li`
     color: #666;
@@ -36,7 +37,9 @@ const AppListItem = (props) => {
 	return (
 		<ListLi onClick={loadDetail}>
 			<div>{props.data.title}</div>
-			<div>{props.data.price}</div>
+			<div>
+				<AppFormattedPrice value={props.data.price}/>
+			</div>
 		</ListLi>
 	)
 }

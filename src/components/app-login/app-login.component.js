@@ -4,35 +4,11 @@ import { Redirect } from 'react-router-dom';
 import base64 from 'base-64';
 import AppError from '../app-error/app-error.component';
 import AppLoading from '../app-loading/app-loading.component';
+import AppHeader from '../app-header/app-header.component';
+import { FormButton, FormInput, FormLabel } from '../app-forms-ui/';
 import loginService from '../../services/app-login/app-login.service';
 import styled from 'styled-components';
 
-const FormLabel = styled.label`
-	display: block;
-	font-size: 0.8rem;
-	margin: 0.4rem 0;
-	color: #666666;
-`;
-const FormInput = styled.input`
-	padding: 0.5rem;
-	border: 1px solid #e1e1e1;
-	border-radius: 0.2rem;
-	box-sizing: border-box;
-	width: 100%;
-	color: #666;
-	font-size: 1.2rem;
-`;
-const FormButton = styled.button`
-	width: 100%;
-	padding: 1rem;
-	border: none;
-	border-radius: 0.1rem;
-	box-sizing: border-box;
-	text-transform: uppercase;
-	background-color: #000000;
-	color: #ffffff;
-	margin-top: 1rem;
-`;
 const FormTitle = styled.h1`
 	text-align: center;
 	color: #b6b0b0;
@@ -58,6 +34,9 @@ const LoginFormInner = styled.div`
 	max-width: 500px;
 	padding: 2rem;
 `;
+const LoginFormActions = styled.div`
+	margin: 1rem 0;
+`;
 const Login = () => {
 	const [loginUser, setLoginUser] = React.useState();
 	const [loginPassword, setLoginPassword] = React.useState();
@@ -66,7 +45,7 @@ const Login = () => {
 		if (state.userLogin.loggedIn) {
 			localStorage.setItem('dmiBooklist', JSON.stringify(state));
 		}
-	}, [ state.userLogin.loggedIn]);
+	}, [state.userLogin.loggedIn]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch({
@@ -102,27 +81,32 @@ const Login = () => {
 	}
 	return (
 		<>
+			<AppHeader />
 			{state.userLogin.loggedIn && <Redirect to='/' />}
 			{state.loading ?
-				<AppLoading cssHeight="100vh" />
+				<AppLoading cssHeight="calc(100vh - 62px)" />
 				:
-				<LoginScreen>
-					<FormTitle>Login</FormTitle>
-					<LoginForm onSubmit={handleSubmit}>
-						{state.error && <AppError />}
-						<LoginFormInner>
-							<div>
-								<FormLabel htmlFor="loginUser">User name</FormLabel>
-								<FormInput name="loginUser" type='text' onChange={(e) => setLoginUser(e.target.value)} />
-							</div>
-							<div>
-								<FormLabel htmlFor="loginPassword">Password</FormLabel>
-								<FormInput type='password' name="loginPassword" onChange={(e) => setLoginPassword(e.target.value)} />
-							</div>
-							<FormButton type="submit">Login</FormButton>
-						</LoginFormInner>
-					</LoginForm>
-				</LoginScreen>
+				<>
+					<LoginScreen>
+						<FormTitle>Login</FormTitle>
+						<LoginForm onSubmit={handleSubmit}>
+							{state.error && <AppError />}
+							<LoginFormInner>
+								<div>
+									<FormLabel labelHtmlFor="loginUser">User name</FormLabel>
+									<FormInput name="loginUser" inputType='text' inputChangeAction={(e) => setLoginUser(e.target.value)} />
+								</div>
+								<div>
+									<FormLabel labelHtmlFor="loginPassword">Password</FormLabel>
+									<FormInput inputType='password' name="loginPassword" inputChangeAction={(e) => setLoginPassword(e.target.value)} />
+								</div>
+								<LoginFormActions>
+									<FormButton buttonType="submit" buttonText="Login" />
+								</LoginFormActions>
+							</LoginFormInner>
+						</LoginForm>
+					</LoginScreen>
+				</>
 			}
 		</>
 	)

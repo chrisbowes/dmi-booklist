@@ -42,6 +42,8 @@ function reducer(state, action) {
       return { ...state, ...action.payload }
     case 'LOGIN_FAIL':
       return { ...state, error: action.payload }
+    case 'LOGOUT':
+      return { ...state, userLogin: { loggedIn: false, userName: null, auth: null }}
     case 'ADD_NEW_BOOK':
       return { ...state, listData: action.payload, showAddForm: false}
     case 'SHOW_ADD_FORM':
