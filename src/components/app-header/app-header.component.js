@@ -2,6 +2,7 @@ import React from 'react';
 import { FormButton } from '../app-forms-ui';
 import styled from 'styled-components';
 import { Store } from '../../store/app.store';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AppHeaderDiv = styled.div`
 	background-color: #000000;
@@ -30,7 +31,7 @@ const BoldTitle = styled.span`
 
 const AppHeaderActions = styled.div`
 	display: flex;
-	* {
+	button {
 		flex: 1 1 0;
 		white-space: nowrap;
 		&:first-child {
@@ -39,6 +40,14 @@ const AppHeaderActions = styled.div`
 		&:last-child {
 			margin-left: 0.5rem;
 		}
+	}
+`;
+
+const AppHeaderButtonLabel = styled.span`
+	display: inline-block;
+	padding-right: 0.5rem;
+	@media screen and (max-width: 600px){
+		display: none;
 	}
 `;
 
@@ -58,8 +67,14 @@ const AppHeader = () => {
       	</AppTitle>
 				{showActions &&
 					<AppHeaderActions>
-						<FormButton buttonClickAction={showAddForm} buttonText="Add New Book" buttonType="button" mode="slim" />
-						<FormButton buttonClickAction={logout} buttonText="Logout" buttonType="button" mode="slim" />
+						<FormButton buttonClickAction={showAddForm} buttonText="Add New Book" buttonType="button" mode="slim" >
+							<AppHeaderButtonLabel>Add New Book</AppHeaderButtonLabel>
+							<FontAwesomeIcon icon="plus-square" style={{ color: '#e1e1e1' }} />
+						</FormButton>
+						<FormButton buttonClickAction={logout} buttonType="button" mode="slim">
+							<AppHeaderButtonLabel>Logout</AppHeaderButtonLabel>
+							<FontAwesomeIcon icon="sign-out-alt" style={{ color: '#e1e1e1' }} />
+						</FormButton>
 					</AppHeaderActions>
 				}
 			</AppHeaderInnerDiv>

@@ -20,32 +20,39 @@ const FormTitle = styled.h1`
 	justify-content: space-around;
 	align-items: center;
 `;
+
 const LoginScreen = styled.div`
 	display: flex;
 	justify-items: stretch;
 	flex-direction: column;
 `;
+
 const LoginForm = styled.form`
 	background-color: #f1f1f1;
 	height: 80vh;
 `;
+
 const LoginFormInner = styled.div`
 	margin: 0 auto;
 	max-width: 500px;
 	padding: 2rem;
 `;
+
 const LoginFormActions = styled.div`
 	margin: 1rem 0;
 `;
+
 const Login = () => {
 	const [loginUser, setLoginUser] = React.useState();
 	const [loginPassword, setLoginPassword] = React.useState();
 	const { state, dispatch } = React.useContext(Store);
+	
 	React.useEffect(() => {
 		if (state.userLogin.loggedIn) {
 			localStorage.setItem('dmiBooklist', JSON.stringify(state));
 		}
-	}, [state.userLogin.loggedIn]);
+	}, [state, state.userLogin.loggedIn]);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch({
@@ -79,6 +86,7 @@ const Login = () => {
 		}
 		login();
 	}
+
 	return (
 		<>
 			<AppHeader />
@@ -101,7 +109,7 @@ const Login = () => {
 									<FormInput inputType='password' name="loginPassword" inputChangeAction={(e) => setLoginPassword(e.target.value)} />
 								</div>
 								<LoginFormActions>
-									<FormButton buttonType="submit" buttonText="Login" />
+									<FormButton buttonType="submit">Login</FormButton>
 								</LoginFormActions>
 							</LoginFormInner>
 						</LoginForm>

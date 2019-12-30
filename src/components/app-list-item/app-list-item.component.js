@@ -17,7 +17,7 @@ const ListLi = styled.li`
 `;
 
 const AppListItem = (props) => {
-	const { state, dispatch } = React.useContext(Store);
+	const { dispatch } = React.useContext(Store);
 	const loadDetail = () => {
 		if (props.data.id) {
 			dispatch({

@@ -52,16 +52,15 @@ const AppMain = () => {
 			getListData();
 
 		}
-	}, [dispatch, state.listData.length]);
+	}, [dispatch, state.listData.length, state.userLogin]);
 
 	React.useEffect(() => {
 		localStorage.setItem('dmiBooklist', JSON.stringify(state));
-	}, [state.listData]);
+	}, [state]);
 
 	React.useLayoutEffect(() => {
     function updateSize() {
 			const matchMobileScreen = window.matchMedia('(max-width: 600px)').matches;
-			console.log(matchMobileScreen)
       setMobileView(matchMobileScreen);
     }
     window.addEventListener('resize', updateSize);
@@ -69,8 +68,8 @@ const AppMain = () => {
 	}, []);
 	
 	const redirectToLogin = !state.userLogin.loggedIn;
-	const showDetailPanel = !mobileView || mobileView && state.listItemDetail.id;
-	const showListPanel = !mobileView || mobileView && !state.listItemDetail.id;
+	const showDetailPanel = !mobileView || (mobileView && state.listItemDetail.id);
+	const showListPanel = !mobileView || (mobileView && !state.listItemDetail.id);
 	return (
 		<>
 			<AppHeader />

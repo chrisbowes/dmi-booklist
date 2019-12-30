@@ -10,7 +10,7 @@ const Error = styled.div`
 `;
 
 const AppError = () => {
-    const { state, dispatch } = React.useContext(Store);
+    const { state } = React.useContext(Store);
     return (
         <Error>
             {state.error}
