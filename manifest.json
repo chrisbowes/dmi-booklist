@@ -1,0 +1,8 @@
+{
+  "short_name": "DMI Booklist",
+  "name": "DMI Booklist",
+  "start_url": "/dmi-booklist/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
