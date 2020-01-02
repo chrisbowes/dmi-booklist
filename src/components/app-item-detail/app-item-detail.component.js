@@ -57,7 +57,7 @@ const AppItemDetail = (props) => {
 	React.useEffect(() => {
 		if (state.loading === 'listItemData') {
 			const selectedItem = state.listData.filter((item) => item.id === state.listItemDetail.id)[0];
-			if (selectedItem.localStore) {
+			if (selectedItem && selectedItem.localStore) {
 				dispatch({
 					type: 'FETCH_LIST_ITEM_DATA_SUCCESS',
 					payload: selectedItem
@@ -71,6 +71,9 @@ const AppItemDetail = (props) => {
 							payload: listItemData.data
 						});
 					} else {
+						dispatch({
+							type: 'CLEAR_DETAILS'
+						});
 						dispatch({
 							type: 'FETCH_ERROR',
 							payload: listItemData.error
@@ -94,7 +97,7 @@ const AppItemDetail = (props) => {
 				:
 				<DetailArticle>
 					{state.loading === 'listItemData' ?
-						<AppLoading cssHeight="50vh" />
+						<AppLoading cssHeight="100%" />
 						:
 						<>
 							{props.mobileView && 

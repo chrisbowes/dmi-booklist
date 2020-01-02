@@ -6,7 +6,7 @@ const emptyState = {
   listData: [],
   listDataRange: {
     from: 0,
-    to: 4
+    to: 5
   },
   listItemDetail: {
     id: null,
@@ -37,7 +37,7 @@ function reducer(state, action) {
     case 'FETCH_LIST_DATA_SUCCESS':
       return { ...state, ...action.payload };
     case 'FETCH_LIST_ITEM_DATA_REQUEST':
-      return { ...state, listItemDetail: action.payload, loading: 'listItemData' };
+      return { ...state, listItemDetail: action.payload, loading: 'listItemData', error: null };
     case 'FETCH_LIST_ITEM_DATA_SUCCESS':
       return { ...state, listItemDetail: action.payload, loading: null };
     case 'LOGIN_REQUEST':
@@ -47,7 +47,7 @@ function reducer(state, action) {
     case 'LOGIN_FAIL':
       return { ...state, error: action.payload }
     case 'LOGOUT':
-      return { ...state, userLogin: { loggedIn: false, userName: null, auth: null }}
+      return { ...emptyState, userLogin: { loggedIn: false, userName: null, auth: null }}
     case 'ADD_NEW_BOOK':
       return { ...state, ...action.payload, showAddForm: false}
     case 'SHOW_ADD_FORM':
