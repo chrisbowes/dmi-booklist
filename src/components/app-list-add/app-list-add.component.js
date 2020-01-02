@@ -34,22 +34,26 @@ const AppListAdd = () => {
 	const { state, dispatch } = React.useContext(Store);
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		const newListItem = {
+			id: uuidv1(),
+			price: bookprice,
+			title: bookname,
+			image: bookimagesrc,
+			author: authorname,
+			localStore: true
+		};
 		const listData = [
-			{
-				id: uuidv1(),
-				price: bookprice,
-				title: bookname,
-				image: bookimagesrc,
-				author: authorname,
-				localStore: true
-			},
+			newListItem,
 			...state.listData
 		]
 		dispatch({
 			type: 'ADD_NEW_BOOK',
 			payload: {
 				listData,
-				listDataRange: { from: 0, to: config.PAGING_RANGE }
+				listDataRange: { from: 0, to: config.PAGING_RANGE },
+				showAddForm: false,
+				listItemDetail: { data: null, id: newListItem.id },
+				loading: 'listItemData'
 			}
 		})
 	}

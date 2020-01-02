@@ -41,7 +41,7 @@ function reducer(state, action) {
     case 'FETCH_LIST_ITEM_DATA_SUCCESS':
       return { ...state, listItemDetail: action.payload, loading: null };
     case 'LOGIN_REQUEST':
-      return { ...state, ...action.payload }
+      return { ...state, ...action.payload, error: null }
     case 'LOGIN_SUCCESS':
       return { ...state, ...action.payload }
     case 'LOGIN_FAIL':
@@ -49,9 +49,9 @@ function reducer(state, action) {
     case 'LOGOUT':
       return { ...emptyState, userLogin: { loggedIn: false, userName: null, auth: null }}
     case 'ADD_NEW_BOOK':
-      return { ...state, ...action.payload, showAddForm: false}
+      return { ...state, ...action.payload, error: null }
     case 'SHOW_ADD_FORM':
-      return { ...state, showAddForm: true}
+      return { ...state, showAddForm: true, error: null }
     case 'HIDE_ADD_FORM':
       return { ...state, showAddForm: false }
     case 'CLEAR_DETAILS':
